@@ -55,7 +55,7 @@ const VLazySrc = (options: VLazySrcOption): DirectiveOptions => {
           }
   
           const opserverOptions: IntersectionObserverInit = Object.assign({}, {
-            threshold: options.threshold
+            threshold: options.threshold || defaultOptions.threshold as number;
           })
   
           // make IntersectionObserver on window if not exists
