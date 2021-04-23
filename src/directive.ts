@@ -31,7 +31,7 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
     bind(el: HTMLElement, binding: BindingOptions, vnode: VNode): void {
   
       // keep lazy-src for future
-      const isDynamicValue: boolean | undefined = binding.modifiers?.raw;
+      const isDynamicValue: boolean | undefined = !binding.modifiers?.raw;
       const src = isDynamicValue ? binding.value : binding.expression;
       if (typeof src === 'undefined') {
         throw new TypeError('v-lazy-src directive must have a value')

@@ -8,3 +8,5 @@ const VLazySrcPlugin: PluginObject<any> = {
 }
 
 export default VLazySrcPlugin;
+export { VLazySrc };
+

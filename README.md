@@ -20,9 +20,9 @@ If the src is static url not dynamic value, use `.raw` modifier.
 
 ```js
 import Vue from 'vue'
-import VLazySrc from 'v-lazy-src'
+import VLazySrcPlugin from 'v-lazy-src'
 
-Vue.use(VLazySrc)
+Vue.use(VLazySrcPlugin)
 ```
 
 the plugin accepts two options:
@@ -31,7 +31,21 @@ the plugin accepts two options:
 - placeholder: url of placeholder image src that shown before img tag should be shown (default: **empty transparent gif**)
 
 ```js
-Vue.use(VLazySrc, {threshold: 0.5, placeholder: '/path/to/empty.png'})
+Vue.use(VLazySrcPlugin, {threshold: 0.5, placeholder: '/path/to/empty.png'})
 ```
 
 will show `/path/to/empty.png` until half of img element's rect is intersects with viewport, then loads `lazySrc`
+
+Or just make local directive in your component:
+
+```js
+import { VLazySrc } from 'v-lazy-src'
+
+{
+  name: 'YourComponent',
+  directives: {
+    lazySrc: VLazySrc({threshould: 0})
+  }
+  ...
+}
+```
