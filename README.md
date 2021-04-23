@@ -27,14 +27,14 @@ Vue.use(VLazySrcPlugin)
 
 the plugin accepts two options:
 
-- threshold: which amount of element intersects within root element (default: 0.1)
-- placeholder: url of placeholder image src that shown before img tag should be shown (default: **empty transparent gif**)
+- threshold: which amount of element intersects within root element (default: `0.1`)
+- placeholder: url of placeholder image src that loaded before img tag should be shown (default: **empty transparent gif**)
 
 ```js
 Vue.use(VLazySrcPlugin, {threshold: 0.5, placeholder: '/path/to/empty.png'})
 ```
 
-will show `/path/to/empty.png` until half of img element's rect is intersects with viewport, then loads `lazySrc`
+will show `/path/to/empty.png` unless half of img element's rect is intersects with viewport, then loads lazy src.
 
 Or just make local directive in your component:
 
