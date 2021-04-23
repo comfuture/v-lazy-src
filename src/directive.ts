@@ -55,7 +55,7 @@ const VLazySrc = (options: VLazySrcOption): DirectiveOptions => {
           }
   
           const opserverOptions: IntersectionObserverInit = Object.assign({}, {
-            threshold: options.threshold || defaultOptions.threshold as number;
+            threshold: options.threshold || defaultOptions.threshold as number
           })
   
           // make IntersectionObserver on window if not exists
@@ -69,10 +69,10 @@ const VLazySrc = (options: VLazySrcOption): DirectiveOptions => {
       }
     },
     inserted(el: HTMLElement) {
-      globalThis._lazyImageOpserver.observe(el);
+      globalThis._lazyImageOpserver?.observe(el);
     },
     unbind(el: HTMLElement) {
-      globalThis._lazyImageOpserver.unobserve(el);
+      globalThis._lazyImageOpserver?.unobserve(el);
     }
   }
 }
