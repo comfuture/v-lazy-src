@@ -26,7 +26,7 @@ const defaultOptions: VLazySrcOption = {
   placeholder: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
 }
 
-const VLazySrc = (options: VLazySrcOption): DirectiveOptions => {
+const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
   return {
     bind(el: HTMLElement, binding: BindingOptions, vnode: VNode): void {
   
