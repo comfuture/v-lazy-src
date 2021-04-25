@@ -1,3 +1,4 @@
+/* tslint:disable:import/no-unresolved */
 import { VNode, DirectiveOptions /*, DirectiveBinding */ } from 'vue';
 
 declare module globalThis {
@@ -29,7 +30,9 @@ const defaultOptions: VLazySrcOption = {
 const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
   return {
     bind(el: HTMLElement, binding: BindingOptions, vnode: VNode): void {
-  
+      // check whether IntersectionObserver is supported or not
+      const isSupported: boolean = 'IntersectionObserver' in globalThis
+
       // keep lazy-src for future
       const isDynamicValue: boolean | undefined = !binding.modifiers?.raw;
       const src = isDynamicValue ? binding.value : binding.expression;
@@ -39,13 +42,11 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
       el.dataset.lazySrc = src;
       
       if (!globalThis._lazyImageOpserver) {
-        if ('IntersectionObserver' in globalThis) {
-  
+        if (isSupported) {
           // setup img element intersection callback
           const cb: IntersectionObserverCallback = (entries: IntersectionObserverEntry[],
                                                     observer: IntersectionObserver): void => {
             entries.forEach((entry: IntersectionObserverEntry) => {
-              // do something
               if (entry.isIntersecting) {
                 const targetEl: HTMLElement = (entry.target as HTMLElement);
                 const lazySrc: string = targetEl.dataset.lazySrc as string;
@@ -62,10 +63,13 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
           globalThis._lazyImageOpserver = new IntersectionObserver(cb, opserverOptions);
         } else {
           // throw exception?
-          el.setAttribute('src', src); // just set src attribute as lazySrc
         }
-      } else {
+      }
+
+      if (isSupported) {
         el.setAttribute('src', options.placeholder || defaultOptions.placeholder as string);
+      } else {
+        el.setAttribute('src', src); // just set src attribute as lazySrc
       }
     },
     inserted(el: HTMLElement) {
