@@ -8,5 +8,5 @@
     "importHelpers": true,
     "strict": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/__tests__/index.ts"]
 }
