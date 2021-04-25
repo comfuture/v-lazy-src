@@ -2,6 +2,9 @@
   "name": "v-lazy-src",
   "version": "0.1.0",
   "description": "lazy image loader directive for vue 2.0",
+  "keywords": [
+    "vue", "directive", "img", "lazyload"
+  ],
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "scripts": {
@@ -9,6 +12,10 @@
     "build": "rollup -c"
   },
   "author": "comfuture <comfuture@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/comfuture/v-lazy-src.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.13.16",
