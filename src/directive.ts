@@ -1,4 +1,3 @@
-/* tslint:disable:import/no-unresolved */
 import { VNode, DirectiveOptions /*, DirectiveBinding */ } from 'vue';
 
 declare module globalThis {
@@ -30,14 +29,17 @@ const defaultOptions: VLazySrcOption = {
 const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
   return {
     bind(el: HTMLElement, binding: BindingOptions, vnode: VNode): void {
+      if (vnode.context?.$isServer === true) {
+        return; // nothing to do. early return.
+      }
       // check whether IntersectionObserver is supported or not
-      const isSupported: boolean = 'IntersectionObserver' in globalThis
+      const isSupported: boolean = 'IntersectionObserver' in globalThis;
 
       // keep lazy-src for future
       const isDynamicValue: boolean | undefined = !binding.modifiers?.raw;
       const src = isDynamicValue ? binding.value : binding.expression;
       if (typeof src === 'undefined') {
-        throw new TypeError('v-lazy-src directive must have a value')
+        throw new TypeError('v-lazy-src directive must have a value');
       }
       el.dataset.lazySrc = src;
       
@@ -61,8 +63,6 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
   
           // make IntersectionObserver on window if not exists
           globalThis._lazyImageOpserver = new IntersectionObserver(cb, opserverOptions);
-        } else {
-          // throw exception?
         }
       }
 
