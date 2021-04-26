@@ -8,11 +8,13 @@ export default {
   input: './src/index.ts',
   output: [
     {
+      exports: 'named',
       file: pkg.main,
       format: 'cjs',
       sourcemap: true
     },
     {
+      exports: 'named',
       file: pkg.module,
       format: 'esm',
       sourcemap: true
