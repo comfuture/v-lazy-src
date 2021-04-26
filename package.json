@@ -39,7 +39,7 @@
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "vue": "^2x",
+    "vue": "^2.x",
     "vue-loader": "^15.x",
     "vue-template-compiler": "^2.x"
   }
