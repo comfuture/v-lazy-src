@@ -52,7 +52,10 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
               if (entry.isIntersecting) {
                 const targetEl: HTMLElement = (entry.target as HTMLElement);
                 const lazySrc: string = targetEl.dataset.lazySrc as string;
-                targetEl.setAttribute('src', lazySrc);
+                const currentSrc: string | null = targetEl.getAttribute('src');
+                if (currentSrc !== lazySrc) {
+                  targetEl.setAttribute('src', lazySrc);
+                }
               }
             })
           }
