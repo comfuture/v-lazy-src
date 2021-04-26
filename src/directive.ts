@@ -2,7 +2,7 @@
 import { VNode, DirectiveOptions /*, DirectiveBinding */ } from 'vue';
 
 declare module globalThis {
-  let _lazyImageOpserver: IntersectionObserver;
+  let _lazyImageObserver: IntersectionObserver;
 }
 
 export interface VLazySrcOption {
@@ -41,7 +41,7 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
       }
       el.dataset.lazySrc = src;
       
-      if (!globalThis._lazyImageOpserver) {
+      if (!globalThis._lazyImageObserver) {
         if (isSupported) {
           // setup img element intersection callback
           const cb: IntersectionObserverCallback = (entries: IntersectionObserverEntry[],
@@ -60,7 +60,7 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
           })
   
           // make IntersectionObserver on window if not exists
-          globalThis._lazyImageOpserver = new IntersectionObserver(cb, opserverOptions);
+          globalThis._lazyImageObserver = new IntersectionObserver(cb, opserverOptions);
         } else {
           // throw exception?
         }
@@ -73,10 +73,10 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
       }
     },
     inserted(el: HTMLElement) {
-      globalThis._lazyImageOpserver?.observe(el);
+      globalThis._lazyImageObserver?.observe(el);
     },
     unbind(el: HTMLElement) {
-      globalThis._lazyImageOpserver?.unobserve(el);
+      globalThis._lazyImageObserver?.unobserve(el);
     }
   }
 }
