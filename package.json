@@ -1,9 +1,13 @@
 {
   "name": "v-lazy-src",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "lazy image loader directive for vue 2.0",
   "keywords": [
-    "vue", "directive", "img", "lazyload"
+    "vue",
+    "directive",
+    "img",
+    "lazyload",
+    "pagespeed"
   ],
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -35,8 +39,8 @@
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "vue": "^2.6.12",
-    "vue-loader": "^15.9.6",
-    "vue-template-compiler": "^2.6.12"
+    "vue": "^2x",
+    "vue-loader": "^15.x",
+    "vue-template-compiler": "^2.x"
   }
 }
