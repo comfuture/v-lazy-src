@@ -25,7 +25,7 @@ describe('v-lazy-src directive', () => {
         img: 'https://placekitten.com/408/287'
       }
     })
-    expect(globalThis._lazyImageOpserver instanceof IntersectionObserver).toBeTruthy()
+    expect(globalThis._lazyImageObserver instanceof IntersectionObserver).toBeTruthy()
   })
   
   // XXX: IntersectionObserver polyfill does not fires callback
