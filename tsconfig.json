@@ -7,9 +7,10 @@
     "declaration": true,
     "importHelpers": true,
     "strict": true,
+    "moduleResolution": "node",
     "paths": {
       "vue": ["./node_modules/vue/types/index.d.ts"]
     }
   },
-  "include": ["src/**/*.ts", "src/__tests__/index.ts"]
+  "include": ["src/**/*.ts"]
 }
