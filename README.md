@@ -1,6 +1,7 @@
 # v-lazy-src
 
 A custom directive that make `<img>` tag to have their own lazy loading feature.
+It uses only one `IntersectionObserver` to observe all lazy images (even $route changes).
 
 ## Usage
 
@@ -36,7 +37,7 @@ Vue.use(VLazySrcPlugin, {threshold: 0.5, placeholder: '/path/to/empty.png'})
 
 will show `/path/to/empty.png` unless half of img element's rect is intersects with viewport, then loads lazy src.
 
-Or just make local directive in your component:
+Or just setup directive for each component:
 
 ```js
 import { VLazySrc } from 'v-lazy-src'
