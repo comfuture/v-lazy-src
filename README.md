@@ -11,10 +11,12 @@ It uses only one `IntersectionObserver` to observe all lazy images (even $route 
 
 When the img tag intersects within viewport (default threshold: 0.1), it starts load the value of directive as img's src.
 
-If the src is static url not dynamic value, use `.raw` modifier.
+For static url, you should use additional quotes within value, or use `data-lazy-src` property.
 
 ```html
-<img v-lazy-src.raw="https://placekitten.com/408/287" />
+<img v-lazy-src="'https://placekitten.com/408/287'" />
+<!-- or -->
+<img v-lazy-src data-lazy-src="https://placekitten.com/408/287" />
 ```
 
 ## Installation
@@ -42,11 +44,14 @@ Or just setup directive for each component:
 ```js
 import { VLazySrc } from 'v-lazy-src'
 
-{
+export default {
   name: 'YourComponent',
   directives: {
     lazySrc: VLazySrc({threshould: 0})
-  }
+  },
+  template: `<div>
+    <img v-lazy-src="..." />
+  </div>`
   ...
 }
 ```

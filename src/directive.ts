@@ -9,16 +9,14 @@ export interface VLazySrcOption {
   placeholder?: string;
 }
 
-interface TModifiers {
-  raw?: boolean;
-}
-
 interface BindingOptions /* extends DirectiveBinding */ {
   name: string;
   value?: any;
   expression?: string;
   argument?: string;
-  modifiers?: TModifiers;
+  modifiers?: {
+    'once'?: boolean
+  };
 }
 
 const defaultOptions: VLazySrcOption = {
@@ -36,13 +34,12 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
       const isSupported: boolean = 'IntersectionObserver' in globalThis;
 
       // keep lazy-src for future
-      const isDynamicValue: boolean | undefined = !binding.modifiers?.raw;
-      const src = isDynamicValue ? binding.value : binding.expression;
+      const src = binding.value || el.dataset.lazySrc;
       if (typeof src === 'undefined') {
         throw new TypeError('v-lazy-src directive must have a value');
       }
       el.dataset.lazySrc = src;
-      
+
       if (!globalThis._lazyImageObserver) {
         if (isSupported) {
           // setup img element intersection callback
@@ -55,6 +52,9 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
                 const currentSrc: string | null = targetEl.getAttribute('src');
                 if (currentSrc !== lazySrc) {
                   targetEl.setAttribute('src', lazySrc);
+                }
+                if (binding.modifiers?.once === true) {
+                  observer.unobserve(el);
                 }
               }
             })
