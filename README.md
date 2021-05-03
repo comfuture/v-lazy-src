@@ -21,6 +21,10 @@ For static url, you should use additional quotes within value, or use `data-lazy
 
 ## Installation
 
+```
+npm i v-lazy-src
+```
+
 ```js
 import Vue from 'vue'
 import VLazySrcPlugin from 'v-lazy-src'

@@ -24,6 +24,8 @@ const defaultOptions: VLazySrcOption = {
   placeholder: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
 }
 
+const vNodeMap: Map<HTMLElement, VNode> = new Map<HTMLElement, VNode>();
+
 const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
   return {
     bind(el: HTMLElement, binding: BindingOptions, vnode: VNode): void {
@@ -53,6 +55,10 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
                 if (currentSrc !== lazySrc) {
                   targetEl.setAttribute('src', lazySrc);
                 }
+                const vm = vNodeMap.get(el);
+                if (vm?.context) {
+                  vm.context?.$emit('intersection')
+                }
                 if (binding.modifiers?.once === true) {
                   observer.unobserve(el);
                 }
@@ -71,6 +77,7 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
 
       if (isSupported) {
         el.setAttribute('src', options.placeholder || defaultOptions.placeholder as string);
+        vNodeMap.set(el, vnode);
       } else {
         el.setAttribute('src', src); // just set src attribute as lazySrc
       }
@@ -80,6 +87,7 @@ const VLazySrc = (options: VLazySrcOption = {}): DirectiveOptions => {
     },
     unbind(el: HTMLElement) {
       globalThis._lazyImageObserver?.unobserve(el);
+      vNodeMap.delete(el);
     }
   }
 }
