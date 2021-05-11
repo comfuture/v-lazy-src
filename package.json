@@ -1,6 +1,6 @@
 {
   "name": "v-lazy-src",
-  "version": "0.1.2",
+  "version": "0.2.1",
   "description": "lazy image loader directive for vue 2.0",
   "keywords": [
     "vue",
